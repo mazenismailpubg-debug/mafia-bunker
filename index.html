@@ -1,195 +1,623 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09090b">
-  <title>لوحة التحكم | MAFIA BUNKER</title>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Cabina Medical توفر مستلزمات المعامل والزجاجيات والأجهزة المخبرية والمواد الكيميائية ومنتجات الميكروبيولوجيا ومستلزمات مراقبة التعقيم." id="page-description">
+  <title>Cabina Medical | حلول طبية</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     * { font-family: "Cairo", sans-serif; }
-    body {
-      background:
-        radial-gradient(ellipse at 85% 0%, rgba(127, 29, 29, .20), transparent 35%),
-        #09090b;
+    html[lang="en"] * { font-family: Arial, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background: #f7fbff; }
+    .hero-wash {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background-color: #edf6ff;
+      background-image: linear-gradient(180deg, rgba(255,255,255,.04), rgba(237,246,255,.16)), url("assets/cabina-banner.png");
+      background-position: center top;
+      background-size: 100% auto;
+      background-repeat: no-repeat;
     }
-    .panel {
-      background: linear-gradient(145deg, rgba(24, 24, 27, .92), rgba(15, 15, 18, .96));
-      border: 1px solid rgba(127, 29, 29, .28);
+    .medical-bg-animation {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
     }
-    .soft-glow { box-shadow: 0 0 35px rgba(220, 38, 38, .08); }
-    input { color-scheme: dark; }
+    .med-element {
+      position: absolute;
+      top: -3.5rem;
+      font-size: 2.7rem;
+      line-height: 1;
+      opacity: .44;
+      filter: drop-shadow(0 2px 3px rgba(15, 58, 112, .28));
+      user-select: none;
+      animation: float-and-fall linear infinite;
+    }
+    .med-element:nth-child(1) { left: 8%; animation-duration: 14s; }
+    .med-element:nth-child(2) { left: 22%; animation-duration: 18s; animation-delay: 3s; font-size: 3.1rem; }
+    .med-element:nth-child(3) { left: 38%; animation-duration: 12s; animation-delay: 1s; }
+    .med-element:nth-child(4) { left: 55%; animation-duration: 16s; animation-delay: 4s; font-size: 3.5rem; }
+    .med-element:nth-child(5) { left: 70%; animation-duration: 13s; animation-delay: 2s; }
+    .med-element:nth-child(6) { left: 85%; animation-duration: 17s; animation-delay: 5s; font-size: 3rem; }
+    .med-element:nth-child(7) { left: 93%; animation-duration: 15s; animation-delay: 2.5s; }
+    @keyframes float-and-fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15%, 85% { opacity: .44; }
+      100% { transform: translateY(105vh) rotate(360deg); opacity: 0; }
+    }
+    @keyframes hero-enter {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 10px 24px rgba(20, 83, 45, .2); }
+      50% { box-shadow: 0 10px 28px rgba(37, 211, 102, .42); }
+    }
+    .hero-copy { animation: hero-enter .75s cubic-bezier(.2,.7,.25,1) both; }
+    .hero-links { animation: hero-enter .75s .12s cubic-bezier(.2,.7,.25,1) both; }
+    body.motion-ready .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .65s ease, transform .65s cubic-bezier(.2,.7,.25,1);
+    }
+    body.motion-ready .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    body.motion-ready #services article:nth-of-type(2) { transition-delay: .1s; }
+    body.motion-ready #services article:nth-of-type(3) { transition-delay: .2s; }
+    body.motion-ready #contact a { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background-color .2s ease; }
+    body.motion-ready #contact a:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(30, 94, 160, .12); }
+    .whatsapp-float { animation: wa-pulse 2.8s ease-in-out infinite; }
+    .soft-card { box-shadow: 0 18px 55px rgba(30, 94, 160, .09); }
+    .content-card {
+      border: 1px solid #e1edfa;
+      background: linear-gradient(145deg, #fff, #f8fbff);
+      box-shadow: 0 16px 42px rgba(15, 58, 112, .07);
+    }
+    .contact-modal-overlay {
+      width: min(90vw, 480px);
+      max-width: 480px;
+      max-height: calc(100dvh - 2rem);
+      overflow-y: auto;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #1e293b;
+    }
+    .contact-modal-overlay::backdrop { background: rgba(15, 23, 42, .6); backdrop-filter: blur(5px); }
+    .contact-modal-card {
+      position: relative;
+      padding: 30px;
+      border: 1px solid #dbeafe;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, .1);
+    }
+    .modal-header { padding-inline-end: 2.75rem; }
+    .modal-header h2 { margin: 0 0 8px; color: #0f172a; font-size: 1.25rem; line-height: 1.5; }
+    .modal-header p { margin: 0 0 20px; color: #64748b; font-size: .9rem; line-height: 1.7; }
+    .close-modal-btn {
+      position: absolute;
+      inset-block-start: 15px;
+      inset-inline-end: 15px;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      background: transparent;
+      color: #64748b;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .close-modal-btn:hover { background: #eff6ff; color: #1e3a8a; }
+    .contact-options-list { display: flex; flex-direction: column; gap: 12px; }
+    .contact-option-item {
+      display: flex;
+      min-width: 0;
+      align-items: center;
+      gap: 15px;
+      padding: 14px 18px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      color: inherit;
+      text-decoration: none;
+      transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease, background-color .3s ease;
+    }
+    .contact-option-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, .05); }
+    .contact-option-item .icon { flex: 0 0 auto; font-size: 1.5rem; }
+    .contact-option-item .info { min-width: 0; }
+    .contact-option-item .info strong { display: block; color: #1e293b; font-size: .95rem; }
+    .contact-option-item .info span { color: #64748b; font-size: .8rem; overflow-wrap: anywhere; }
+    .email-btn { background: #f0f9ff; }
+    .email-btn:hover { border-color: #0284c7; }
+    .whatsapp-btn { background: #f8fafc; }
+    .whatsapp-btn:hover { border-color: #22c55e; background: #f0fdf4; }
+    .whatsapp-btn[aria-disabled="true"] { color: #64748b; }
+    .phone-btn { background: #fff; }
+    .phone-btn:hover { border-color: #ef4444; background: #fef2f2; }
+    .categories-section {
+      padding: 80px 5%;
+      background: #f8fafc;
+    }
+    .section-title { margin-bottom: 50px; text-align: center; }
+    .section-title h2 { margin-bottom: 10px; color: #0f172a; font-size: 2.5rem; }
+    .section-title p { color: #64748b; font-size: 1.1rem; }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .category-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
+      transition: transform .4s cubic-bezier(.165, .84, .44, 1), box-shadow .4s cubic-bezier(.165, .84, .44, 1), border-color .4s ease;
+    }
+    .category-card:hover { transform: translateY(-8px); box-shadow: 0 20px 35px rgba(2, 132, 199, .15); border-color: #0284c7; }
+    .card-geometric-frame {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      background: #dceeff;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+    .card-geometric-frame::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(14, 75, 145, .08), rgba(14, 75, 145, .28));
+      content: "";
+      pointer-events: none;
+    }
+    .card-geometric-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .6s ease;
+    }
+    .category-card:hover .card-geometric-frame img { transform: scale(1.08); }
+    .card-content { padding: 25px; }
+    .card-content h3 { margin-bottom: 10px; color: #0f172a; font-size: 1.3rem; }
+    .card-content p { margin-bottom: 20px; color: #475569; font-size: .95rem; line-height: 1.6; }
+    .explore-btn { display: inline-block; color: #0284c7; font-weight: 700; text-decoration: none; transition: color .3s ease; }
+    .explore-btn:hover { color: #0369a1; text-decoration: underline; }
+    @media (max-width: 480px) {
+      .contact-modal-card { padding: 24px 20px; }
+      .contact-option-item { gap: 12px; padding: 12px 14px; }
+    }
+    .contact-card { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .contact-card:hover { transform: translateY(-3px); border-color: #bfdbfe; box-shadow: 0 14px 32px rgba(30, 94, 160, .09); }
+    :focus-visible { outline: 3px solid #60a5fa; outline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+      .hero-copy, .hero-links, .whatsapp-float, .med-element { animation: none !important; }
+      .medical-bg-animation { display: none; }
+      body.motion-ready .reveal { opacity: 1; transform: none; transition: none; }
+    }
   </style>
 </head>
-
-<body class="min-h-screen text-zinc-100">
-  <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-
-    <header class="panel soft-glow mb-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl px-5 py-4">
-      <a href="#" class="flex items-center gap-3" aria-label="الصفحة الرئيسية">
-        <span class="grid h-11 w-11 place-items-center rounded-xl bg-red-600 font-extrabold tracking-wider text-white">M</span>
-        <span>
-          <span class="block text-sm font-extrabold tracking-[.18em]">MAFIA BUNKER</span>
-          <span class="block text-xs text-zinc-500">PRIVATE CONTROL PANEL</span>
-        </span>
-      </a>
-
-      <nav class="flex flex-wrap items-center gap-2 text-sm" aria-label="التنقل الرئيسي">
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الرئيسية</a>
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الخزنة</a>
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الأعضاء</a>
-        <a href="#" aria-current="page" class="rounded-lg bg-red-600 px-4 py-2 font-bold text-white shadow-lg shadow-red-950/40">لوحة التحكم</a>
+<body class="text-slate-800 antialiased">
+  <header class="sticky top-0 z-30 border-b border-blue-100/80 bg-white/95 backdrop-blur">
+    <div class="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 lg:grid-cols-[1fr_auto_1fr] lg:gap-6 lg:px-8">
+      <button id="language-toggle" class="justify-self-start rounded-xl border border-blue-200 bg-white px-4 py-2 text-sm font-bold text-blue-800 transition hover:bg-blue-50" type="button" aria-label="Switch language">English</button>
+      <button id="menu-toggle" class="col-start-3 grid h-10 w-10 place-items-center rounded-xl border border-blue-100 text-blue-800 md:hidden" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="فتح قائمة التنقل" data-i18n-aria="menuLabel">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+      </button>
+      <nav id="main-nav" class="absolute inset-x-0 top-full hidden flex-col gap-1 border-b border-blue-100 bg-white p-4 shadow-lg md:static md:col-span-3 md:flex md:flex-row md:items-center md:justify-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none lg:col-span-1 lg:col-start-2 lg:row-start-1" aria-label="التنقل الرئيسي" data-i18n-aria="navLabel">
+        <a data-i18n="navAbout" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-800" href="#about">عن الشركة</a>
+        <a data-i18n="navServices" class="rounded-lg px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-blue-50 hover:text-blue-800" href="#services">الخدمات والمنتجات</a>
+        <button id="contact-options-button" data-i18n="navContact" data-open-contact class="rounded-xl bg-blue-700 px-5 py-2.5 text-center text-sm font-bold text-white transition hover:bg-blue-800" type="button">تواصل معنا</button>
       </nav>
+    </div>
+  </header>
 
-      <div class="flex items-center gap-3 rounded-xl border border-red-950/70 bg-black/20 px-3 py-2">
-        <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>
-        <span class="text-sm font-semibold text-zinc-300">MâzênX</span>
+  <dialog id="contact-dialog" aria-labelledby="contact-dialog-title" aria-describedby="contact-dialog-description" class="contact-modal-overlay">
+    <div class="contact-modal-card">
+      <div class="modal-header">
+        <p data-i18n="dialogEyebrow" class="text-sm font-extrabold text-blue-700">يسعدنا التواصل معكم</p>
+        <h2 id="contact-dialog-title" data-i18n="dialogTitle">تواصلوا مع فريق Cabina Medical</h2>
+        <p id="contact-dialog-description" data-i18n="dialogDescription">للاستفسار عن مستلزمات المعامل والتجهيزات المخبرية، تواصلوا معنا بالطريقة المناسبة.</p>
       </div>
-    </header>
-
-    <main class="space-y-8">
-      <section class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-        <div>
-          <div class="mb-2 flex items-center gap-2 text-xs font-bold tracking-widest text-red-500">
-            <span class="h-px w-8 bg-red-600"></span>
-            مركز الإدارة
-          </div>
-          <h1 class="text-3xl font-extrabold sm:text-4xl">لوحة التحكم</h1>
-          <p class="mt-2 text-sm text-zinc-400">إدارة السيرفر وإعدادات الربط من مكان واحد.</p>
-        </div>
-
-        <div class="rounded-xl border border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs text-zinc-400">
-          حالة النظام: <span class="font-bold text-emerald-400">متصل</span>
-        </div>
-      </section>
-
-      <section aria-label="إحصائيات النظام" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">الأعضاء والمشرفون</p>
-              <p class="mt-3 text-3xl font-extrabold">4</p>
-            </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-red-500/10 text-lg text-red-400">♟</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">إجمالي الحسابات المسجلة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">إيداعات الخزنة</p>
-              <p class="mt-3 text-3xl font-extrabold">0</p>
-            </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-amber-500/10 text-lg text-amber-400">▣</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">عمليات الإيداع المسجلة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">المعاملات</p>
-              <p class="mt-3 text-3xl font-extrabold">27</p>
-            </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-blue-500/10 text-lg text-blue-400">↗</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">إجمالي العمليات المنفذة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">الغرف المفتوحة</p>
-              <p class="mt-3 text-3xl font-extrabold">0</p>
-            </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-violet-500/10 text-lg text-violet-400">▤</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">الغرف النشطة حاليًا</p>
-        </article>
-      </section>
-
-      <section class="panel soft-glow rounded-2xl p-5 sm:p-7">
-        <div class="mb-6 flex flex-col gap-3 border-b border-zinc-800 pb-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 class="text-lg font-bold">إعدادات النظام والربط</h2>
-            <p class="mt-1 text-sm text-zinc-500">حدّث بيانات الموقع وفئة تذاكر Discord.</p>
-          </div>
-          <span class="w-fit rounded-full border border-emerald-900/70 bg-emerald-950/40 px-3 py-1 text-xs font-semibold text-emerald-400">
-            الإعدادات الأساسية
+      <button type="button" data-close-contact class="close-modal-btn" aria-label="إغلاق" data-i18n-aria="closeDialogLabel">×</button>
+      <div class="contact-options-list">
+        <a id="dialog-whatsapp-option" href="https://wa.me/201222229957" target="_blank" rel="noopener noreferrer" data-i18n-aria="whatsappOptionTitle" aria-label="راسلنا عبر واتساب" class="contact-option-item whatsapp-btn">
+          <span class="icon grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-[#25D366] text-2xl text-white" aria-hidden="true">💬</span>
+          <span class="info"><strong data-i18n="whatsappOptionTitle">راسلنا عبر واتساب</strong><span id="dialog-whatsapp-note" data-i18n="whatsappOptionReady">+20 1222 299 957</span></span>
+        </a>
+        <a href="mailto:cabinamedical@gmail.com" data-i18n-aria="emailOptionTitle" aria-label="البريد الإلكتروني للشركة" class="contact-option-item email-btn">
+          <span class="icon grid h-12 w-12 place-items-center rounded-xl bg-white" aria-hidden="true">
+            <svg viewBox="0 0 48 48" class="h-10 w-10"><path fill="#4285F4" d="M7 14.5 24 27l17-12.5V37a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3z"/><path fill="#34A853" d="M7 14.5 12 18v22h-2a3 3 0 0 1-3-3z"/><path fill="#FBBC04" d="M36 18l5-3.5V37a3 3 0 0 1-3 3h-2z"/><path fill="#EA4335" d="M7 14.5 10 9h28l3 5.5L24 27z"/><path fill="#C5221F" d="M7 14.5 10 9v9zM41 14.5 38 9v9z"/></svg>
           </span>
+          <span class="info"><strong data-i18n="emailOptionTitle">البريد الإلكتروني للشركة</strong><span>cabinamedical@gmail.com</span></span>
+          <span class="ms-auto text-blue-600" aria-hidden="true">←</span>
+        </a>
+        <a href="tel:+201222299957" data-i18n-aria="phoneOptionTitle" aria-label="اتصل بخدمة العملاء" class="contact-option-item phone-btn">
+          <span class="icon" aria-hidden="true">📞</span>
+          <span class="info"><strong data-i18n="phoneOptionTitle">اتصل بأحد أرقام الشركة</strong><span>+20 1222 299 957</span></span>
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+  <main id="home">
+    <section class="hero-wash">
+      <div class="medical-bg-animation" aria-hidden="true">
+        <span class="med-element">💊</span>
+        <span class="med-element">🥼</span>
+        <span class="med-element">🧪</span>
+        <span class="med-element">💊</span>
+        <span class="med-element">💉</span>
+        <span class="med-element">🥼</span>
+        <span class="med-element">🔬</span>
+      </div>
+      <div class="relative z-10 mx-auto max-w-7xl px-4 pb-8 pt-[37.5vw] sm:px-6 sm:pb-12 lg:px-8">
+        <div class="hero-copy content-card mx-auto w-full max-w-4xl rounded-3xl p-6 sm:p-9 lg:p-10">
+          <div class="grid gap-6 md:grid-cols-[1fr_auto] md:items-center md:gap-10">
+            <div>
+              <span class="inline-flex items-center gap-2 text-xs font-extrabold text-blue-700 sm:text-sm"><span class="h-px w-7 bg-sky-500"></span><span data-i18n="welcome">Cabina Medical</span></span>
+              <h1 data-i18n="heroTitle" class="mt-3 text-2xl font-extrabold leading-tight text-blue-950 sm:text-3xl">مستلزمات المعامل والتجهيزات المخبرية</h1>
+              <p data-i18n="heroDescription" class="mt-3 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">تورّد Cabina Medical مستلزمات المعامل، والزجاجيات والأجهزة المخبرية، والمواد الكيميائية، ومنتجات الأحياء الدقيقة.</p>
+            </div>
+            <div class="flex flex-wrap gap-3 md:flex-col md:items-stretch">
+              <a data-whatsapp href="#contact" aria-disabled="true" class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-800 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-900/15 transition hover:-translate-y-0.5 hover:bg-blue-900"><span data-i18n="whatsappCta">تواصل عبر واتساب</span><span aria-hidden="true">←</span></a>
+              <a data-i18n="aboutCta" href="#about" class="inline-flex items-center justify-center rounded-xl border border-blue-200 bg-white px-5 py-3 text-sm font-bold text-blue-800 transition hover:border-blue-300 hover:bg-blue-50">تعرّف على الشركة</a>
+            </div>
+          </div>
         </div>
+        <div class="hero-links mx-auto mt-5 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 text-xs font-semibold text-blue-900/75 sm:mt-7 sm:text-sm">
+          <a data-i18n="quickAbout" href="#about" class="transition hover:text-blue-700">نبذة عن الشركة</a><span aria-hidden="true" class="text-blue-300">•</span>
+          <a data-i18n="quickServices" href="#services" class="transition hover:text-blue-700">مجالات التوريد</a><span aria-hidden="true" class="text-blue-300">•</span>
+          <a data-i18n="quickContact" href="#contact" class="transition hover:text-blue-700">بيانات التواصل</a>
+        </div>
+      </div>
+    </section>
 
-        <form id="settings-form" class="space-y-6">
-          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <div>
-              <label for="website" class="mb-2 block text-sm font-semibold text-zinc-300">رابط الموقع</label>
-              <input
-                id="website"
-                name="website"
-                type="url"
-                value="https://mafiabunker.com"
-                placeholder="https://example.com"
-                class="w-full rounded-xl border border-zinc-800 bg-black/30 px-4 py-3 text-sm outline-none transition placeholder:text-zinc-600 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
-              >
-            </div>
+    <section id="about" class="mx-auto max-w-7xl scroll-mt-24 px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-center">
+        <div><p data-i18n="aboutEyebrow" class="text-sm font-extrabold text-blue-700">من نحن</p><h2 data-i18n="aboutTitle" class="mt-3 text-3xl font-extrabold leading-tight text-blue-950 sm:text-4xl">عن Cabina Medical</h2><p data-i18n="aboutIntro" class="mt-3 text-slate-500">توريدات مخبرية للمعامل والجهات العاملة في المجالات العلمية والطبية.</p></div>
+        <div class="content-card rounded-3xl p-6 sm:p-8">
+          <p data-i18n="aboutDescription" class="leading-8 text-slate-600">تتخصص Cabina Medical في توريد مستلزمات المعامل، بما يشمل الزجاجيات والأجهزة المخبرية، والمواد الكيميائية والبيوكيميائية، ومنتجات الميكروبيولوجيا ومستلزمات مراقبة التعقيم.</p>
+        </div>
+      </div>
+    </section>
 
-            <div>
-              <label for="category-id" class="mb-2 block text-sm font-semibold text-zinc-300">معرّف فئة التذاكر</label>
-              <input
-                id="category-id"
-                name="categoryId"
-                type="text"
-                inputmode="numeric"
-                value="1567342346738208830"
-                placeholder="أدخل معرّف الفئة"
-                class="w-full rounded-xl border border-zinc-800 bg-black/30 px-4 py-3 text-sm outline-none transition placeholder:text-zinc-600 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
-              >
-            </div>
-          </div>
+    <section id="services" class="categories-section scroll-mt-20 border-y border-blue-100">
+      <div class="mx-auto max-w-[1200px]">
+        <div class="section-title mx-auto max-w-2xl"><p data-i18n="servicesEyebrow" class="text-sm font-extrabold text-blue-700">مجالات التوريد</p><h2 data-i18n="servicesTitle" class="mt-3 font-extrabold sm:text-4xl">مجالات التوريد والمنتجات</h2><p data-i18n="servicesIntro" class="mt-4 leading-7">تعرّفوا على مجموعة من مستلزمات المعامل والمنتجات المخبرية التي توفرها Cabina Medical.</p></div>
+        <div class="categories-grid">
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/category-glassware.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productOneTitle" class="text-lg font-extrabold text-blue-950">الزجاجيات والأجهزة المخبرية</h3><p data-i18n="productOneText" class="mt-2 text-sm leading-7 text-slate-600">بيكرات ودوارق وماصات وسحاحات وأسطوانات قياس وقوارير كواشف وأجهزة سوكسلت وأدوات ترشيح.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/category-chemicals.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productTwoTitle" class="text-lg font-extrabold text-blue-950">المواد الكيميائية والبيوكيميائية</h3><p data-i18n="productTwoText" class="mt-2 text-sm leading-7 text-slate-600">كواشف ومذيبات وأصباغ ومؤشرات وفيتامينات ومضادات حيوية وسكريات ومواد متخصصة.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/category-microbiology.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productThreeTitle" class="text-lg font-extrabold text-blue-950">اختبارات ومنتجات الميكروبيولوجيا</h3><p data-i18n="productThreeText" class="mt-2 text-sm leading-7 text-slate-600">سلالات مرجعية، واختبارات حساسية المضادات، وأصباغ تشخيصية وزجاجات زراعة الدم وكِتات الأحياء الجزيئية.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/catalog-culture-media.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productFourTitle" class="text-lg font-extrabold text-blue-950">الأوساط الزرعية</h3><p data-i18n="productFourText" class="mt-2 text-sm leading-7 text-slate-600">أوساط مجففة وجاهزة، ومكملات وإضافات معقمة وشرائح واختبارات بيوكيميائية.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/catalog-sterilization-indicators.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productFiveTitle" class="text-lg font-extrabold text-blue-950">مؤشرات مراقبة التعقيم</h3><p data-i18n="productFiveText" class="mt-2 text-sm leading-7 text-slate-600">مؤشرات بيولوجية وكيميائية لمراقبة عمليات التعقيم.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+          <article class="category-card"><div class="card-geometric-frame"><img src="assets/catalog-swabs-consumables.png" alt="" aria-hidden="true"></div><div class="card-content"><h3 data-i18n="productSixTitle" class="text-lg font-extrabold text-blue-950">المسحات ومستهلكات المعمل</h3><p data-i18n="productSixText" class="mt-2 text-sm leading-7 text-slate-600">مسحات معقمة ومسحات نقل وأخذ عينات بيئية، وحاويات وحلقات تلقيح وأطباق بتري وأنابيب وأكياس وأشرطة للأوتوكلاف.</p><a data-i18n="productExplore" href="#contact" class="explore-btn mt-5">اطلب استفسار <span aria-hidden="true">←</span></a></div></article>
+        </div>
+      </div>
+    </section>
 
-          <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
-            <button type="submit" class="rounded-xl bg-red-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-zinc-950">
-              حفظ التغييرات
-            </button>
-            <p id="save-status" class="text-sm text-zinc-500" aria-live="polite"></p>
-          </div>
-        </form>
-      </section>
-    </main>
+    <section class="px-4 pb-16 sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-col items-start justify-between gap-5 rounded-[2rem] bg-gradient-to-l from-blue-950 via-blue-800 to-blue-700 px-6 py-9 text-white shadow-xl shadow-blue-950/15 sm:px-10 lg:flex-row lg:items-center">
+        <div><p data-i18n="contactBannerEyebrow" class="text-sm font-bold text-blue-200">هل ترغب في معرفة المزيد؟</p><h2 data-i18n="contactBannerTitle" class="mt-2 text-2xl font-extrabold sm:text-3xl">يسعدنا تواصلكم مع Cabina Medical</h2><p data-i18n="contactBannerText" class="mt-2 text-sm text-blue-100">راسلنا عبر البريد الإلكتروني أو اعثر على موقع الشركة على الخريطة.</p></div>
+        <button data-open-contact data-i18n="navContact" type="button" class="inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-6 py-3 font-extrabold text-blue-800 transition hover:bg-blue-50">تواصل معنا</button>
+      </div>
+    </section>
 
-    <footer class="py-8 text-center text-xs text-zinc-600">
-      © 2026 MAFIA BUNKER — جميع الحقوق محفوظة
-    </footer>
-  </div>
+    <section id="contact" class="scroll-mt-20 bg-white px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+      <div class="mx-auto flex max-w-5xl flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+        <a href="mailto:cabinamedical@gmail.com" data-i18n-aria="emailCardLabel" aria-label="البريد الإلكتروني" class="group inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-blue-100 bg-white px-6 py-3 font-bold text-blue-900 shadow-sm transition hover:border-blue-300 hover:bg-blue-50 focus-visible:outline-blue-500">
+          <svg viewBox="0 0 48 48" class="h-5 w-5 shrink-0 transition group-hover:scale-110" aria-hidden="true"><path fill="#4285F4" d="M7 14.5 24 27l17-12.5V37a3 3 0 0 1-3 3H10a3 3 0 0 1-3-3z"/><path fill="#34A853" d="M7 14.5 12 18v22h-2a3 3 0 0 1-3-3z"/><path fill="#FBBC04" d="M36 18l5-3.5V37a3 3 0 0 1-3 3h-2z"/><path fill="#EA4335" d="M7 14.5 10 9h28l3 5.5L24 27z"/><path fill="#C5221F" d="M7 14.5 10 9v9zM41 14.5 38 9v9z"/></svg>
+          <span data-i18n="emailCardLabel">البريد الإلكتروني</span>
+        </a>
+        <a href="https://www.facebook.com/cabinamedical" target="_blank" rel="noopener noreferrer" data-i18n-aria="facebookLabel" aria-label="صفحة Cabina Medical على فيسبوك" class="group inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-blue-100 bg-white px-6 py-3 font-bold text-blue-900 shadow-sm transition hover:border-blue-300 hover:bg-blue-50 focus-visible:outline-blue-500">
+          <svg viewBox="0 0 48 48" class="h-5 w-5 shrink-0 transition group-hover:scale-110" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#1877F2"/><path fill="#fff" d="M28.2 46V27.4h6.2l.9-7.3h-7.1v-4.7c0-2.1.6-3.5 3.6-3.5h3.8V5.4c-.7-.1-3.1-.3-5.8-.3-5.8 0-9.8 3.5-9.8 10v5h-6.1v7.3H20V46z"/></svg>
+          <span data-i18n="facebookLabel">فيسبوك</span>
+        </a>
+        <a href="https://maps.app.goo.gl/WzQLsDNx4kYv4LRv8?g_st=aw" target="_blank" rel="noopener noreferrer" data-i18n-aria="locationOptionTitle" aria-label="موقع الشركة على خرائط Google" class="group inline-flex min-h-14 items-center justify-center gap-3 rounded-xl border border-blue-100 bg-white px-6 py-3 font-bold text-blue-900 shadow-sm transition hover:border-blue-300 hover:bg-blue-50 focus-visible:outline-blue-500">
+          <svg viewBox="0 0 48 48" class="h-5 w-5 shrink-0 transition group-hover:scale-110" aria-hidden="true"><path fill="#4285F4" d="M24 3C14.6 3 7 10.4 7 19.5c0 12 17 25.5 17 25.5s17-13.5 17-25.5C41 10.4 33.4 3 24 3Z"/><path fill="#34A853" d="M24 3c-6.6 0-12.3 3.7-15.1 9.2l13.8 8 9.2-15.8A17.2 17.2 0 0 0 24 3Z"/><path fill="#FBBC04" d="M8.9 12.2a16.2 16.2 0 0 0-1.9 7.3c0 3.8 1.8 8 4.3 12.1l12.1-11.4z"/><path fill="#EA4335" d="M31.9 4.4 21.3 22.8l14.9 5.1c2.9-4.1 4.8-7.1 4.8-9.6 0-6.5-3.7-11.5-9.1-13.9Z"/><circle cx="24" cy="19.5" r="7" fill="#fff"/></svg>
+          <span data-i18n="locationOptionTitle">موقعنا</span>
+        </a>
+      </div>
+      <p data-i18n="locationDescription" class="mt-4 text-center text-xs text-slate-500">اضغط لفتح موقع الشركة على الخريطة.</p>
+    </section>
+  </main>
+
+  <footer class="border-t border-blue-100 bg-[#f7fbff]">
+    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+      <p>© <span id="year"></span> Cabina Medical. <span data-i18n="copyright">جميع الحقوق محفوظة.</span></p>
+      <a data-i18n="backToTop" href="#home" class="font-bold text-blue-700 hover:text-blue-900">العودة إلى الأعلى ↑</a>
+    </div>
+  </footer>
+
+  <a
+    data-whatsapp
+    href="#contact"
+    aria-label="تواصل مع Cabina Medical عبر واتساب"
+    data-i18n-aria="whatsappLabel"
+    aria-disabled="true"
+    title="تواصل عبر واتساب"
+    data-i18n-title="whatsappTitle"
+    class="whatsapp-float fixed bottom-5 right-5 z-40 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-lg shadow-green-900/25 transition hover:scale-105 hover:bg-[#1fbd5b] focus-visible:outline-white sm:bottom-7 sm:right-7 sm:h-16 sm:w-16"
+  >
+    <svg viewBox="0 0 32 32" class="h-8 w-8 fill-current" aria-hidden="true">
+      <path d="M16.04 3C8.86 3 3.02 8.82 3.02 15.98c0 2.29.6 4.52 1.75 6.5L3 29l6.7-1.75a13.1 13.1 0 0 0 6.33 1.61h.01c7.17 0 13.01-5.82 13.02-12.98a12.9 12.9 0 0 0-3.82-9.17A12.95 12.95 0 0 0 16.04 3Zm0 23.66h-.01a10.8 10.8 0 0 1-5.5-1.5l-.39-.23-3.98 1.04 1.06-3.86-.25-.4a10.73 10.73 0 0 1-1.65-5.73c0-5.93 4.83-10.75 10.77-10.75 2.87 0 5.57 1.12 7.59 3.14a10.67 10.67 0 0 1 3.15 7.6c0 5.93-4.83 10.76-10.79 10.76Zm5.91-8.06c-.32-.16-1.9-.94-2.2-1.05-.3-.1-.51-.16-.73.16-.22.32-.84 1.05-1.03 1.27-.19.22-.38.24-.7.08-.32-.16-1.36-.5-2.59-1.58-.96-.85-1.61-1.9-1.8-2.22-.19-.32-.02-.49.14-.65.15-.15.32-.38.48-.57.16-.19.21-.32.32-.54.1-.22.05-.41-.03-.57-.08-.16-.73-1.75-1-2.4-.26-.63-.53-.54-.73-.55l-.62-.01c-.22 0-.57.08-.87.41-.3.32-1.14 1.1-1.14 2.68s1.17 3.11 1.33 3.32c.16.22 2.3 3.5 5.57 4.91.78.34 1.39.55 1.87.7.79.25 1.5.22 2.07.13.63-.1 1.9-.78 2.17-1.54.27-.76.27-1.41.19-1.54-.08-.14-.3-.22-.62-.38Z"/>
+    </svg>
+  </a>
 
   <script>
-    const form = document.getElementById("settings-form");
-    const status = document.getElementById("save-status");
-    const websiteInput = document.getElementById("website");
-    const categoryInput = document.getElementById("category-id");
+    const translations = {
+      ar: {
+        title: "Cabina Medical | حلول طبية",
+        description: "Cabina Medical توفر مستلزمات المعامل والزجاجيات والأجهزة المخبرية والمواد الكيميائية ومنتجات الميكروبيولوجيا ومستلزمات مراقبة التعقيم.",
+        languageButton: "English",
+        languageLabel: "Switch language to English",
+        closeDialogLabel: "إغلاق نافذة التواصل",
+        menuLabel: "فتح قائمة التنقل",
+        navLabel: "التنقل الرئيسي",
+        navAbout: "عن الشركة",
+        navServices: "الخدمات والمنتجات",
+        navContact: "تواصل معنا",
+        dialogEyebrow: "يسعدنا التواصل معكم",
+        dialogTitle: "تواصلوا مع فريق Cabina Medical",
+        dialogDescription: "للاستفسار عن مستلزمات المعامل والتجهيزات المخبرية، تواصلوا معنا بالطريقة المناسبة.",
+        emailOptionTitle: "البريد الإلكتروني للشركة",
+        emailCardLabel: "البريد الإلكتروني",
+        whatsappOptionTitle: "راسلنا عبر واتساب",
+        whatsappOptionNote: "أضف رقم واتساب الشركة لإتاحة هذا الخيار.",
+        whatsappOptionReady: "مراسلة مباشرة على الرقم +20 1222 299 957",
+        phoneOptionTitle: "اتصل بأحد أرقام الشركة",
+        welcome: "Cabina Medical",
+        heroTitle: "مستلزمات المعامل والتجهيزات المخبرية",
+        heroDescription: "تورّد Cabina Medical مستلزمات المعامل، والزجاجيات والأجهزة المخبرية، والمواد الكيميائية، ومنتجات الأحياء الدقيقة.",
+        whatsappCta: "تواصل عبر واتساب",
+        aboutCta: "تعرّف على الشركة",
+        quickAbout: "نبذة عن الشركة",
+        quickServices: "مجالات التوريد",
+        quickContact: "بيانات التواصل",
+        aboutEyebrow: "من نحن",
+        aboutTitle: "عن Cabina Medical",
+        aboutIntro: "توريدات مخبرية للمعامل والجهات العاملة في المجالات العلمية والطبية.",
+        aboutDescription: "تتخصص Cabina Medical في توريد مستلزمات المعامل، بما يشمل الزجاجيات والأجهزة المخبرية، والمواد الكيميائية والبيوكيميائية، ومنتجات الميكروبيولوجيا ومستلزمات مراقبة التعقيم.",
+        servicesEyebrow: "مجالات التوريد",
+        servicesTitle: "مجالات التوريد والمنتجات",
+        servicesIntro: "تعرّفوا على مجموعة من مستلزمات المعامل والمنتجات المخبرية التي توفرها Cabina Medical.",
+        productExplore: "اطلب استفسار",
+        productOneTitle: "الزجاجيات والأجهزة المخبرية",
+        productOneText: "بيكرات ودوارق وماصات وسحاحات وأسطوانات قياس وقوارير كواشف وأجهزة سوكسلت وأدوات ترشيح.",
+        productTwoTitle: "المواد الكيميائية والبيوكيميائية",
+        productTwoText: "كواشف ومذيبات وأصباغ ومؤشرات وفيتامينات ومضادات حيوية وسكريات ومواد متخصصة.",
+        productThreeTitle: "اختبارات ومنتجات الميكروبيولوجيا",
+        productThreeText: "سلالات مرجعية، واختبارات حساسية المضادات، وأصباغ تشخيصية وزجاجات زراعة الدم وكِتات الأحياء الجزيئية.",
+        productFourTitle: "الأوساط الزرعية",
+        productFourText: "أوساط مجففة وجاهزة، ومكملات وإضافات معقمة وشرائح واختبارات بيوكيميائية.",
+        productFiveTitle: "مؤشرات مراقبة التعقيم",
+        productFiveText: "مؤشرات بيولوجية وكيميائية لمراقبة عمليات التعقيم.",
+        productSixTitle: "المسحات ومستهلكات المعمل",
+        productSixText: "مسحات معقمة ومسحات نقل وأخذ عينات بيئية، وحاويات وحلقات تلقيح وأطباق بتري وأنابيب وأكياس وأشرطة للأوتوكلاف.",
+        contactBannerEyebrow: "هل ترغب في معرفة المزيد؟",
+        contactBannerTitle: "يسعدنا تواصلكم مع Cabina Medical",
+        contactBannerText: "راسلنا عبر البريد الإلكتروني أو اعثر على موقع الشركة على الخريطة.",
+        whatsappMessage: "راسلنا على واتساب",
+        contactEyebrow: "نحن هنا للتواصل",
+        contactTitle: "تواصل مع Cabina Medical",
+        contactIntro: "راسلنا عبر البريد الإلكتروني أو اعثر على موقع الشركة على الخريطة.",
+        phoneLabel: "الهاتف",
+        emailLabel: "البريد الإلكتروني",
+        emailDescription: "اضغط لإرسال رسالة بريد إلكتروني",
+        websiteLabel: "الموقع الإلكتروني",
+        facebookLabel: "فيسبوك",
+        locationOptionTitle: "موقعنا",
+        locationDescription: "اضغط لفتح موقع الشركة على الخريطة.",
+        addressLabel: "العنوان",
+        addressValue: "4 Ahmed Deif Allah St., Retag Towers, Tower (A), 2nd floor, Unit 205, Mariouteya Haram, Giza",
+        whatsappNote: "لم يُحدّد رقم من أرقام الهاتف كرقم واتساب؛ زر واتساب يعرض بيانات الاتصال إلى حين تأكيد الرقم.",
+        whatsappLabel: "تواصل مع Cabina Medical عبر واتساب",
+        whatsappTitle: "تواصل عبر واتساب",
+        whatsappConfigured: "يمكنكم مراسلة الشركة مباشرة عبر زر واتساب.",
+        copyright: "جميع الحقوق محفوظة.",
+        backToTop: "العودة إلى الأعلى ↑"
+      },
+      en: {
+        title: "Cabina Medical | Medical Supplies",
+        description: "Cabina Medical supplies laboratory glassware and equipment, chemicals and biochemicals, microbiology products, and sterilization monitoring supplies.",
+        languageButton: "العربية",
+        languageLabel: "التبديل إلى العربية",
+        closeDialogLabel: "Close contact options",
+        menuLabel: "Open navigation menu",
+        navLabel: "Main navigation",
+        navAbout: "About",
+        navServices: "Services & Products",
+        navContact: "Contact us",
+        dialogEyebrow: "We would be happy to hear from you",
+        dialogTitle: "Contact the Cabina Medical team",
+        dialogDescription: "For inquiries about laboratory supplies and equipment, choose a contact option.",
+        emailOptionTitle: "Company email",
+        emailCardLabel: "Email Cabina Medical",
+        whatsappOptionTitle: "Message us on WhatsApp",
+        whatsappOptionNote: "Add the company's WhatsApp number to enable this option.",
+        whatsappOptionReady: "Message us directly at +20 1222 299 957",
+        phoneOptionTitle: "Call one of the company numbers",
+        welcome: "Cabina Medical",
+        heroTitle: "Laboratory supplies and equipment",
+        heroDescription: "Cabina Medical supplies laboratory glassware and equipment, chemicals, and microbiology products.",
+        whatsappCta: "Contact us on WhatsApp",
+        aboutCta: "Discover the company",
+        quickAbout: "About the company",
+        quickServices: "Product categories",
+        quickContact: "Contact details",
+        aboutEyebrow: "Who we are",
+        aboutTitle: "About Cabina Medical",
+        aboutIntro: "Laboratory supplies for organizations working in scientific and medical fields.",
+        aboutDescription: "Cabina Medical supplies laboratory essentials, including glassware and equipment, chemicals and biochemicals, microbiology products, and sterilization monitoring supplies.",
+        servicesEyebrow: "Product categories",
+        servicesTitle: "Supplies and product categories",
+        servicesIntro: "Explore laboratory supplies and products offered by Cabina Medical.",
+        productExplore: "Send an inquiry",
+        productOneTitle: "Glassware and laboratory equipment",
+        productOneText: "Beakers, flasks, pipettes, burettes, measuring cylinders, reagent bottles, Soxhlet apparatus, and filtration equipment.",
+        productTwoTitle: "Laboratory chemicals and biochemicals",
+        productTwoText: "Reagents, solvents, dyes, indicators, vitamins, antibiotics, sugars, and specialty chemicals.",
+        productThreeTitle: "Microbiology tests and products",
+        productThreeText: "Reference strains, antimicrobial susceptibility tests, diagnostic stains, blood culture bottles, and molecular biology kits.",
+        productFourTitle: "Culture media",
+        productFourText: "Dehydrated and prepared media, supplements, sterile additives, slants, and biochemical tests.",
+        productFiveTitle: "Sterilization monitoring indicators",
+        productFiveText: "Biological and chemical indicators for sterilization monitoring.",
+        productSixTitle: "Swabs and laboratory consumables",
+        productSixText: "Sterile and transport swabs, environmental sampling, containers, inoculating loops, Petri dishes, tubes, and autoclave supplies.",
+        contactBannerEyebrow: "Would you like to learn more?",
+        contactBannerTitle: "We would be happy to hear from you",
+        contactBannerText: "Email us or find the company location using the links below.",
+        whatsappMessage: "Message us on WhatsApp",
+        contactEyebrow: "Get in touch",
+        contactTitle: "Contact Cabina Medical",
+        contactIntro: "Email us or find the company address on the map.",
+        phoneLabel: "Phone",
+        emailLabel: "Email",
+        emailDescription: "Select to write us an email",
+        websiteLabel: "Website",
+        facebookLabel: "Facebook",
+        locationOptionTitle: "Our location",
+        locationDescription: "Open the company location on the map.",
+        addressLabel: "Address",
+        addressValue: "4 Ahmed Deif Allah St., Retag Towers, Tower (A), 2nd floor, Unit 205, Mariouteya Haram, Giza",
+        whatsappNote: "None of these phone numbers is identified as the WhatsApp line; the WhatsApp button shows contact details until a number is confirmed.",
+        whatsappLabel: "Contact Cabina Medical on WhatsApp",
+        whatsappTitle: "Contact us on WhatsApp",
+        whatsappConfigured: "Message the company directly using the WhatsApp button.",
+        copyright: "All rights reserved.",
+        backToTop: "Back to top ↑"
+      }
+    };
 
-    const savedSettings = JSON.parse(localStorage.getItem("mafiaBunkerSettings") || "{}");
-    if (savedSettings.website) websiteInput.value = savedSettings.website;
-    if (savedSettings.categoryId) categoryInput.value = savedSettings.categoryId;
+    const languageToggle = document.getElementById("language-toggle");
+    const contactDialog = document.getElementById("contact-dialog");
+    const dialogWhatsappOption = document.getElementById("dialog-whatsapp-option");
+    const dialogWhatsappNote = document.getElementById("dialog-whatsapp-note");
+    let currentLanguage = "ar";
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
+    function setLanguage(language) {
+      currentLanguage = language;
+      const copy = translations[language];
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+      document.title = copy.title;
+      document.getElementById("page-description").content = copy.description;
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        element.textContent = copy[element.dataset.i18n];
+      });
+      document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
+        element.setAttribute("aria-label", copy[element.dataset.i18nAria]);
+      });
+      document.querySelectorAll("[data-i18n-title]").forEach((element) => {
+        element.setAttribute("title", copy[element.dataset.i18nTitle]);
+      });
+      document.querySelector("[data-whatsapp][aria-label]").setAttribute("aria-label", copy.whatsappLabel);
+      languageToggle.textContent = copy.languageButton;
+      languageToggle.setAttribute("aria-label", copy.languageLabel);
+      document.querySelectorAll("[data-open-contact]").forEach((button) => {
+        button.setAttribute("aria-haspopup", "dialog");
+      });
+      dialogWhatsappNote.textContent = normalizedNumber.length >= 8 ? copy.whatsappOptionReady : copy.whatsappOptionNote;
+      if (normalizedNumber.length >= 8) {
+        document.getElementById("whatsapp-note").textContent = copy.whatsappConfigured;
+      } else {
+        document.getElementById("whatsapp-note").textContent = copy.whatsappNote;
+      }
+    }
 
-      const settings = {
-        website: websiteInput.value.trim(),
-        categoryId: categoryInput.value.trim()
-      };
-
-      localStorage.setItem("mafiaBunkerSettings", JSON.stringify(settings));
-      status.textContent = "تم حفظ الإعدادات في هذا المتصفح.";
-      status.className = "text-sm text-emerald-400";
+    document.querySelectorAll("[data-open-contact]").forEach((button) => {
+      button.addEventListener("click", () => contactDialog.showModal());
     });
+    document.querySelectorAll("[data-close-contact]").forEach((button) => {
+      button.addEventListener("click", () => contactDialog.close());
+    });
+    contactDialog.addEventListener("click", (event) => {
+      if (event.target === contactDialog) contactDialog.close();
+    });
+
+    languageToggle.addEventListener("click", () => {
+      setLanguage(currentLanguage === "ar" ? "en" : "ar");
+      menuToggle.setAttribute("aria-expanded", "false");
+      mainNav.classList.add("hidden");
+    });
+
+    // Replace with the international number only, without "+" or spaces.
+    const WHATSAPP_NUMBER = "201222299957";
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainNav = document.getElementById("main-nav");
+
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+      mainNav.classList.toggle("hidden", isExpanded);
+    });
+
+    mainNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menuToggle.setAttribute("aria-expanded", "false");
+        mainNav.classList.add("hidden");
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const normalizedNumber = WHATSAPP_NUMBER.replace(/\D/g, "");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealTargets = document.querySelectorAll("#about > div, #services > div > div, #services article, main > section:not(.hero-wash):not(#contact) > div, #contact > div");
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+      document.body.classList.add("motion-ready");
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
+      revealTargets.forEach((element) => {
+        element.classList.add("reveal");
+        revealObserver.observe(element);
+      });
+    } else {
+      revealTargets.forEach((element) => element.classList.add("is-visible"));
+    }
+    if (normalizedNumber.length >= 8) {
+      dialogWhatsappOption.href = `https://wa.me/${normalizedNumber}`;
+      dialogWhatsappOption.target = "_blank";
+      dialogWhatsappOption.rel = "noopener noreferrer";
+      dialogWhatsappOption.removeAttribute("aria-disabled");
+      dialogWhatsappOption.classList.remove("border-slate-200", "bg-slate-50", "text-slate-500");
+      dialogWhatsappOption.classList.add("border-green-200", "bg-green-50", "text-green-900", "hover:border-green-300", "hover:bg-green-50");
+      document.querySelectorAll("[data-whatsapp]").forEach((link) => {
+        link.href = `https://wa.me/${normalizedNumber}`;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.removeAttribute("aria-disabled");
+      });
+      document.getElementById("whatsapp-note").textContent = translations.ar.whatsappConfigured;
+    } else {
+      document.querySelectorAll("[data-whatsapp]").forEach((link) => {
+        link.addEventListener("click", (event) => {
+          event.preventDefault();
+          contactDialog.showModal();
+        });
+      });
+    }
+    setLanguage(currentLanguage);
   </script>
 </body>
 </html>
