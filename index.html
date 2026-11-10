@@ -2,194 +2,496 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#09090b">
-  <title>لوحة التحكم | MAFIA BUNKER</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8f6">
+  <meta name="description" content="Cabina Medical للتوريدات المعملية والكيميائية وتجهيزات المصانع والمستشفيات.">
+  <title>Cabina Medical | التوريدات المعملية والمصانع الطبية</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { font-family: "Cairo", sans-serif; }
+    :root {
+      color-scheme: light;
+      --ink: #122f35;
+      --muted: #647779;
+      --teal: #16776d;
+      --teal-dark: #10584f;
+      --lime: #c9dc72;
+      --paper: #f5f8f6;
+      --white: #fff;
+      --line: #e2eae6;
+      --shadow: 0 24px 65px rgba(19, 51, 52, .12);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
     body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Cairo", "Segoe UI", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    a:focus-visible, summary:focus-visible {
+      outline: 3px solid #d6a64e;
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+    .container { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .skip-link {
+      position: absolute;
+      z-index: 20;
+      inset-block-start: 10px;
+      inset-inline-start: 10px;
+      padding: 9px 15px;
+      transform: translateY(-160%);
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--white);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .main-header {
+      position: sticky;
+      z-index: 10;
+      inset-block-start: 0;
+      border-bottom: 1px solid rgba(226, 234, 230, .85);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+    }
+    .header-inner { display: flex; min-height: 82px; align-items: center; justify-content: space-between; gap: 28px; }
+    .logo-container { flex: 0 0 auto; }
+    .logo-container h2 { margin: 0; font-size: 24px; font-weight: 900; letter-spacing: -.8px; line-height: 1.25; direction: ltr; text-align: right; }
+    .logo-container h2 span { color: var(--teal); }
+    .logo-container p { margin: 3px 0 0; color: var(--muted); font-size: 11px; font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px, 3vw, 36px); }
+    .nav-links > a:not(.nav-contact-btn) { color: #53696b; font-size: 14px; font-weight: 700; transition: color .2s ease; }
+    .nav-links > a:not(.nav-contact-btn):hover { color: var(--teal); }
+    .nav-contact-btn, .btn-primary, .btn-secondary {
+      display: inline-flex;
+      min-height: 47px;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 19px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      font-size: 14px;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .nav-contact-btn, .btn-primary { background: var(--teal); color: var(--white); }
+    .nav-contact-btn:hover, .btn-primary:hover { transform: translateY(-2px); background: var(--teal-dark); box-shadow: 0 10px 24px rgba(22,119,109,.2); }
+    .mobile-nav { display: none; }
+
+    .hero-section {
+      position: relative;
+      display: grid;
+      min-height: 590px;
+      align-items: center;
+      overflow: hidden;
+      isolation: isolate;
       background:
-        radial-gradient(ellipse at 85% 0%, rgba(127, 29, 29, .20), transparent 35%),
-        #09090b;
+        radial-gradient(ellipse at 82% 25%, rgba(201,220,114,.13), transparent 34%),
+        linear-gradient(115deg, #102d33 0%, #174e4b 59%, #14655b 100%);
+      color: var(--white);
     }
-    .panel {
-      background: linear-gradient(145deg, rgba(24, 24, 27, .92), rgba(15, 15, 18, .96));
-      border: 1px solid rgba(127, 29, 29, .28);
+    .hero-section::before, .hero-section::after {
+      position: absolute;
+      z-index: -1;
+      border: 1px solid rgba(225,244,218,.1);
+      border-radius: 50%;
+      content: "";
     }
-    .soft-glow { box-shadow: 0 0 35px rgba(220, 38, 38, .08); }
-    input { color-scheme: dark; }
+    .hero-section::before { inset-block-start: -300px; inset-inline-start: -90px; width: 690px; aspect-ratio: 1; box-shadow: 0 0 0 58px rgba(255,255,255,.025), 0 0 0 116px rgba(255,255,255,.02); }
+    .hero-section::after { inset-block-end: -390px; inset-inline-end: 22%; width: 620px; aspect-ratio: 1; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 50px; padding-block: 72px; }
+    .hero-content { max-width: 680px; }
+    .badge-top { display: inline-flex; align-items: center; gap: 10px; padding: 7px 13px; border: 1px solid rgba(201,220,114,.36); border-radius: 999px; background: rgba(201,220,114,.09); color: #e0edaf; font-size: 13px; font-weight: 700; }
+    .badge-top::before { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 13px rgba(201,220,114,.8); content: ""; }
+    .hero-content h1 { max-width: 680px; margin: 21px 0 16px; font-size: clamp(38px, 5vw, 62px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.35; }
+    .hero-content h1 span { color: var(--lime); }
+    .hero-content > p { max-width: 610px; margin: 0; color: #d3e2de; font-size: 17px; line-height: 2; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 27px; }
+    .btn-primary { min-height: 51px; padding-inline: 23px; background: var(--lime); color: #1d3835; }
+    .btn-primary:hover { background: #d7e891; box-shadow: 0 10px 25px rgba(201,220,114,.15); }
+    .btn-secondary { min-height: 51px; padding-inline: 21px; border-color: rgba(255,255,255,.28); background: rgba(255,255,255,.06); color: var(--white); }
+    .btn-secondary:hover { transform: translateY(-2px); background: rgba(255,255,255,.13); }
+    .medical-visual { position: relative; display: grid; min-height: 400px; place-items: center; }
+    .visual-ring { position: absolute; width: min(355px, 90%); aspect-ratio: 1; border: 1px solid rgba(225,244,218,.26); border-radius: 50%; box-shadow: 0 0 0 30px rgba(255,255,255,.035), 0 0 0 70px rgba(255,255,255,.025); }
+    .visual-photo { position: relative; width: min(310px, 78%); aspect-ratio: .88; overflow: hidden; border: 7px solid rgba(255,255,255,.14); border-radius: 150px 150px 24px 24px; background: #d5e5dc; box-shadow: 0 24px 55px rgba(0,0,0,.24); }
+    .visual-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .visual-photo::after { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 56%, rgba(13,43,43,.32)); content: ""; }
+    .med-element { position: absolute; display: grid; width: 60px; aspect-ratio: 1; place-items: center; border: 1px solid rgba(255,255,255,.2); border-radius: 18px; background: rgba(255,255,255,.12); box-shadow: 0 10px 30px rgba(0,0,0,.1); font-size: 27px; backdrop-filter: blur(8px); animation: float 5s ease-in-out infinite; }
+    .el-1 { inset-block-start: 29px; inset-inline-start: 18px; }
+    .el-2 { inset-block-start: 100px; inset-inline-end: 0; animation-delay: -1s; }
+    .el-3 { inset-block-end: 55px; inset-inline-end: 14px; animation-delay: -2s; }
+    .el-4 { inset-block-end: 38px; inset-inline-start: 13px; animation-delay: -3s; }
+    .el-5 { inset-block-start: 184px; inset-inline-start: -10px; animation-delay: -4s; }
+    .el-6 { inset-block-start: 4px; inset-inline-end: 70px; animation-delay: -1.5s; }
+    @keyframes float { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-12px) rotate(4deg); } }
+    .hero-trust { display: flex; align-items: center; gap: 11px; margin-top: 24px; color: #d3e2de; font-size: 13px; }
+    .trust-check { display: grid; width: 23px; height: 23px; place-items: center; border-radius: 50%; background: rgba(201,220,114,.16); color: var(--lime); font-size: 13px; font-weight: 900; }
+
+    .products-section { padding-block: 91px 97px; }
+    .section-title { max-width: 690px; margin: 0 auto 42px; text-align: center; }
+    .section-kicker { color: var(--teal); font-size: 13px; font-weight: 800; }
+    .section-title h2 { margin: 8px 0 9px; font-size: clamp(29px, 3.6vw, 42px); font-weight: 900; letter-spacing: -.8px; line-height: 1.45; }
+    .section-title p { margin: 0; color: var(--muted); font-size: 15px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 21px; }
+    .product-card { overflow: hidden; border: 1px solid var(--line); border-radius: 17px; background: var(--white); box-shadow: 0 7px 22px rgba(24,62,55,.035); transition: transform .25s ease, box-shadow .25s ease; }
+    .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .card-geometric-frame { position: relative; height: 230px; overflow: hidden; background: #e5efeb; }
+    .card-geometric-frame::after { position: absolute; inset: 12px; border: 1px solid rgba(255,255,255,.65); border-radius: 10px; content: ""; pointer-events: none; }
+    .card-geometric-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+    .product-card:hover .card-geometric-frame img { transform: scale(1.045); }
+    .card-content { padding: 21px 22px 22px; }
+    .card-content h3 { margin: 0 0 9px; font-size: 18px; font-weight: 800; }
+    .card-content p { min-height: 58px; margin: 0 0 16px; color: var(--muted); font-size: 13px; line-height: 1.9; }
+    .card-link { display: inline-flex; align-items: center; gap: 7px; color: var(--teal); font-size: 13px; font-weight: 800; }
+    .card-link:hover { color: var(--teal-dark); }
+
+    .about-section { position: relative; overflow: hidden; padding-block: 84px; background: #eaf1ed; }
+    .about-section::before { position: absolute; inset-block-start: -200px; inset-inline-end: -100px; width: 420px; aspect-ratio: 1; border: 1px solid rgba(22,119,109,.09); border-radius: 50%; box-shadow: 0 0 0 45px rgba(22,119,109,.025); content: ""; }
+    .about-container { position: relative; display: grid; grid-template-columns: 1fr 250px; align-items: center; gap: 75px; }
+    .about-text h2 { max-width: 690px; margin: 0 0 15px; font-size: clamp(29px, 3.4vw, 41px); font-weight: 900; line-height: 1.5; }
+    .about-text > p { max-width: 740px; margin: 0 0 22px; color: #586e70; font-size: 15px; line-height: 2; }
+    .features-checklist { display: grid; gap: 12px; }
+    .check-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 700; }
+    .check-icon { display: grid; width: 23px; height: 23px; flex: 0 0 23px; place-items: center; margin-top: 2px; border-radius: 50%; background: rgba(22,119,109,.12); color: var(--teal); font-size: 13px; }
+    .about-stats-box { position: relative; padding: 31px 24px; border: 1px solid rgba(255,255,255,.84); border-radius: 20px; background: rgba(255,255,255,.76); box-shadow: 0 16px 38px rgba(31,71,62,.07); text-align: center; }
+    .about-stats-box::before { position: absolute; inset: 9px; border: 1px solid rgba(22,119,109,.11); border-radius: 14px; content: ""; pointer-events: none; }
+    .about-stats-box h3 { position: relative; margin: 0; color: var(--teal); font-size: 58px; font-weight: 900; line-height: 1.2; direction: ltr; }
+    .about-stats-box p { position: relative; margin: 6px auto 0; color: var(--muted); font-size: 13px; font-weight: 700; }
+
+    .contact-section { padding-block: 85px; }
+    .contact-card-box { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--white); box-shadow: var(--shadow); }
+    .contact-header { padding: 33px 36px 23px; background: linear-gradient(110deg, #f3f8f4, #eaf3ef); }
+    .contact-header h2 { margin: 0 0 5px; font-size: clamp(24px, 3vw, 32px); font-weight: 900; line-height: 1.5; }
+    .contact-header p { margin: 0; color: var(--muted); font-size: 14px; }
+    .contact-channels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; padding: 23px 30px; }
+    .channel-item { display: flex; min-width: 0; align-items: center; gap: 13px; padding: 15px; border: 1px solid var(--line); border-radius: 13px; background: var(--white); transition: border-color .2s ease, transform .2s ease, background .2s ease; }
+    .channel-item:hover { transform: translateY(-2px); border-color: #b7d4ca; background: #f7fbf9; }
+    .ch-icon { display: grid; width: 43px; height: 43px; flex: 0 0 43px; place-items: center; border-radius: 12px; background: #e8f3ee; font-size: 21px; }
+    .whatsapp .ch-icon { background: #e4f4e9; }
+    .email .ch-icon { background: #ecf1f8; }
+    .facebook .ch-icon { background: #eef2ff; }
+    .ch-info { min-width: 0; }
+    .ch-info strong { display: block; font-size: 13px; font-weight: 800; }
+    .ch-info span { display: block; overflow-wrap: anywhere; color: var(--muted); font-size: 11px; line-height: 1.7; }
+    .company-address { padding: 17px 30px 21px; border-top: 1px solid var(--line); }
+    .company-address p { margin: 0; color: #586e70; font-size: 13px; line-height: 1.9; }
+    .site-footer { padding-block: 18px; background: var(--ink); color: #d5e2df; text-align: center; }
+    .site-footer p { margin: 0; font-size: 12px; }
+
+    @media (max-width: 880px) {
+      .header-inner { gap: 18px; }
+      .nav-links { gap: 17px; }
+      .nav-links > a:not(.nav-contact-btn) { font-size: 13px; }
+      .nav-contact-btn { padding-inline: 13px; font-size: 12px; }
+      .hero-grid { grid-template-columns: 1.1fr .9fr; gap: 15px; }
+      .medical-visual { min-height: 340px; }
+      .about-container { grid-template-columns: 1fr 210px; gap: 35px; }
+      .contact-channels { gap: 9px; padding-inline: 20px; }
+      .channel-item { gap: 9px; padding: 12px 10px; }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 36px, 540px); }
+      .header-inner { min-height: 73px; gap: 14px; }
+      .logo-container h2 { font-size: 21px; }
+      .logo-container p { font-size: 10px; }
+      .nav-links { display: none; }
+      .mobile-nav { position: relative; display: block; }
+      .mobile-nav summary { display: grid; width: 44px; height: 44px; place-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--white); cursor: pointer; list-style: none; }
+      .mobile-nav summary::-webkit-details-marker { display: none; }
+      .mobile-nav summary svg { width: 21px; height: 21px; color: var(--ink); }
+      .mobile-links { position: absolute; inset-block-start: 53px; inset-inline-end: 0; display: grid; width: min(265px, calc(100vw - 36px)); gap: 3px; padding: 10px; border: 1px solid var(--line); border-radius: 13px; background: var(--white); box-shadow: var(--shadow); }
+      .mobile-links a { padding: 9px 11px; border-radius: 8px; color: #53696b; font-size: 14px; font-weight: 700; }
+      .mobile-links a:hover { background: #eef5f1; }
+      .hero-section { min-height: unset; }
+      .hero-grid { grid-template-columns: 1fr; gap: 15px; padding-block: 50px 35px; }
+      .hero-content h1 { margin-top: 17px; font-size: clamp(36px, 9.5vw, 50px); }
+      .hero-content > p { font-size: 15px; }
+      .hero-buttons { display: grid; grid-template-columns: 1fr; }
+      .hero-buttons a { width: 100%; }
+      .medical-visual { min-height: min(83vw, 360px); }
+      .visual-ring { width: min(265px, 76%); }
+      .visual-photo { width: min(235px, 68%); }
+      .med-element { width: 49px; border-radius: 15px; font-size: 22px; }
+      .el-1 { inset-block-start: 23px; inset-inline-start: 10%; }
+      .el-2 { inset-block-start: 65px; inset-inline-end: 8%; }
+      .el-3 { inset-block-end: 29px; inset-inline-end: 11%; }
+      .el-4 { inset-block-end: 24px; inset-inline-start: 12%; }
+      .el-5 { inset-block-start: 135px; inset-inline-start: 5%; }
+      .el-6 { inset-block-start: 7px; inset-inline-end: 28%; }
+      .products-section { padding-block: 62px; }
+      .section-title { margin-bottom: 28px; }
+      .products-grid { grid-template-columns: 1fr; gap: 16px; }
+      .product-card { display: grid; grid-template-columns: .82fr 1.18fr; }
+      .card-geometric-frame { height: 100%; min-height: 205px; }
+      .card-content { align-self: center; padding: 15px; }
+      .card-content h3 { font-size: 15px; line-height: 1.65; }
+      .card-content p { min-height: unset; margin-bottom: 10px; font-size: 12px; }
+      .card-link { font-size: 12px; }
+      .about-section { padding-block: 61px; }
+      .about-container { grid-template-columns: 1fr; gap: 24px; }
+      .about-stats-box { width: min(100%, 300px); justify-self: center; padding-block: 19px; }
+      .about-stats-box h3 { font-size: 48px; }
+      .contact-section { padding-block: 61px; }
+      .contact-header { padding: 25px 22px 18px; }
+      .contact-channels { grid-template-columns: 1fr; padding: 17px 18px; }
+      .channel-item { min-height: 72px; padding: 13px; }
+      .ch-info strong { font-size: 14px; }
+      .ch-info span { font-size: 12px; }
+      .company-address { padding-inline: 19px; }
+    }
+    @media (max-width: 390px) {
+      .container { width: calc(100% - 28px); }
+      .product-card { grid-template-columns: .72fr 1.28fr; }
+      .card-content { padding: 12px; }
+      .card-content h3 { font-size: 14px; }
+      .card-link { font-size: 11px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
   </style>
+  <link rel="stylesheet" href="style.css?v=partners-brands">
 </head>
 
-<body class="min-h-screen text-zinc-100">
-  <div class="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-
-    <header class="panel soft-glow mb-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl px-5 py-4">
-      <a href="#" class="flex items-center gap-3" aria-label="الصفحة الرئيسية">
-        <span class="grid h-11 w-11 place-items-center rounded-xl bg-red-600 font-extrabold tracking-wider text-white">M</span>
-        <span>
-          <span class="block text-sm font-extrabold tracking-[.18em]">MAFIA BUNKER</span>
-          <span class="block text-xs text-zinc-500">PRIVATE CONTROL PANEL</span>
-        </span>
+<body>
+  <a class="skip-link" href="#main-content">انتقل إلى المحتوى</a>
+  <header class="main-header">
+    <div class="container header-inner">
+      <a class="logo-container" href="#hero" aria-label="Cabina Medical، الرئيسية">
+        <h2>Cabina <span>Medical</span></h2>
+        <p>كابينا ميديكال للتوريدات المعملية والمصانع</p>
       </a>
-
-      <nav class="flex flex-wrap items-center gap-2 text-sm" aria-label="التنقل الرئيسي">
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الرئيسية</a>
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الخزنة</a>
-        <a href="#" class="rounded-lg px-3 py-2 text-zinc-400 transition hover:bg-white/5 hover:text-white">الأعضاء</a>
-        <a href="#" aria-current="page" class="rounded-lg bg-red-600 px-4 py-2 font-bold text-white shadow-lg shadow-red-950/40">لوحة التحكم</a>
+      <nav class="nav-links" aria-label="التنقل الرئيسي">
+        <a href="#hero">الرئيسية</a>
+        <a href="#partners">التوكيلات والماركات</a>
+        <a href="#products">أقسام التوريد</a>
+        <a href="#about">لماذا نحن</a>
+        <a href="#contact" class="nav-contact-btn">طلب توريد / عروض أسعار</a>
       </nav>
+      <details class="mobile-nav">
+        <summary aria-label="فتح قائمة التنقل">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </summary>
+        <nav class="mobile-links" aria-label="التنقل الرئيسي">
+          <a href="#hero">الرئيسية</a>
+          <a href="#partners">التوكيلات والماركات</a>
+          <a href="#products">أقسام التوريد</a>
+          <a href="#about">لماذا نحن</a>
+          <a href="#contact">طلب توريد / عروض أسعار</a>
+        </nav>
+      </details>
+    </div>
+  </header>
 
-      <div class="flex items-center gap-3 rounded-xl border border-red-950/70 bg-black/20 px-3 py-2">
-        <span class="h-2.5 w-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]"></span>
-        <span class="text-sm font-semibold text-zinc-300">MâzênX</span>
+  <main id="main-content">
+    <section id="hero" class="hero-section" aria-labelledby="hero-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="badge-top">الشريك المعتمد للمعامل والمصانع الكبرى</span>
+          <h1 id="hero-title">توريدات معملية وكيميائية بأعلى معايير الجودة</h1>
+          <p>نخدم المصانع، المعامل البحثية، وقطاعات الميكروبيولوجيا بأرقى الماركات العالمية المعتمدة وزجاجيات دقيقة ومؤشرات تعقيم.</p>
+          <div class="hero-buttons">
+            <a href="#products" class="btn-primary">تصفح كتالوج المنتجات</a>
+            <a href="#contact" class="btn-secondary">تواصل مع قسم المبيعات</a>
+          </div>
+          <div class="hero-trust"><span class="trust-check" aria-hidden="true">✓</span> خبرة واهتمام بالتفاصيل، من اختيار الصنف حتى التوريد</div>
+        </div>
+        <div class="medical-visual" aria-label="أدوات وتجهيزات للمختبرات الطبية">
+          <div class="visual-ring" aria-hidden="true"></div>
+          <div class="visual-photo">
+            <img src="assets/cabina-medical-profile.png" alt="ملف Cabina Medical للتوريدات المعملية مع تشكيلة من المستلزمات الطبية" fetchpriority="high">
+          </div>
+          <span class="med-element el-1" aria-hidden="true">🧪</span>
+          <span class="med-element el-2" aria-hidden="true">🔬</span>
+          <span class="med-element el-3" aria-hidden="true">💊</span>
+          <span class="med-element el-4" aria-hidden="true">🥼</span>
+          <span class="med-element el-5" aria-hidden="true">🌡️</span>
+          <span class="med-element el-6" aria-hidden="true">🧪</span>
+        </div>
       </div>
-    </header>
+    </section>
 
-    <main class="space-y-8">
-      <section class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-        <div>
-          <div class="mb-2 flex items-center gap-2 text-xs font-bold tracking-widest text-red-500">
-            <span class="h-px w-8 bg-red-600"></span>
-            مركز الإدارة
+    <section id="partners" class="partners-marquee-section" aria-labelledby="partners-title">
+      <div class="partners-title">
+        <h2 id="partners-title">نعتمد ونوفر أرقى الماركات العالمية المعتمدة لمعاملكم ومصانعكم</h2>
+      </div>
+      <div class="marquee-container" aria-label="العلامات التجارية التي نوفرها">
+        <div class="marquee-track">
+          <div class="partner-group">
+            <span class="partner-item">MesaLabs</span>
+            <span class="partner-item">Oxoid</span>
+            <span class="partner-item">Thermo Fisher</span>
+            <span class="partner-item">HiMedia</span>
+            <span class="partner-item">Parker</span>
+            <span class="partner-item">ATCC Strains</span>
           </div>
-          <h1 class="text-3xl font-extrabold sm:text-4xl">لوحة التحكم</h1>
-          <p class="mt-2 text-sm text-zinc-400">إدارة السيرفر وإعدادات الربط من مكان واحد.</p>
+          <div class="partner-group" aria-hidden="true">
+            <span class="partner-item">MesaLabs</span>
+            <span class="partner-item">Oxoid</span>
+            <span class="partner-item">Thermo Fisher</span>
+            <span class="partner-item">HiMedia</span>
+            <span class="partner-item">Parker</span>
+            <span class="partner-item">ATCC Strains</span>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="rounded-xl border border-zinc-800 bg-zinc-900/70 px-4 py-2 text-xs text-zinc-400">
-          حالة النظام: <span class="font-bold text-emerald-400">متصل</span>
+    <section id="products" class="products-section" aria-labelledby="products-title">
+      <div class="container">
+        <div class="section-title">
+          <span class="section-kicker">حلول توريد متكاملة</span>
+          <h2 id="products-title">قطاعات التوريد والمنتجات الرئيسية</h2>
+          <p>منتجات متخصصة للمعامل ومصانع الأدوية والأغذية ومختبرات مراقبة الجودة.</p>
         </div>
-      </section>
-
-      <section aria-label="إحصائيات النظام" class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">الأعضاء والمشرفون</p>
-              <p class="mt-3 text-3xl font-extrabold">4</p>
+        <div class="products-grid">
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-glassware.png" alt="دوارق ومخابر زجاجية ملونة للمعامل" loading="lazy">
             </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-red-500/10 text-lg text-red-400">♟</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">إجمالي الحسابات المسجلة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">إيداعات الخزنة</p>
-              <p class="mt-3 text-3xl font-extrabold">0</p>
+            <div class="card-content">
+              <h3>الزجاجيات والأدوات المخبرية</h3>
+              <p>دوارق وكؤوس زجاجية (Beakers)، ومخابر مدرجة ودوارق مخروطية (Conical flasks) ومستلزمات دقيقة.</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
             </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-amber-500/10 text-lg text-amber-400">▣</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">عمليات الإيداع المسجلة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">المعاملات</p>
-              <p class="mt-3 text-3xl font-extrabold">27</p>
+          </article>
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-indicators.png" alt="عبوات مؤشرات ومواد مراقبة التعقيم" loading="lazy">
             </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-blue-500/10 text-lg text-blue-400">↗</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">إجمالي العمليات المنفذة</p>
-        </article>
-
-        <article class="panel rounded-2xl p-5 transition hover:-translate-y-1">
-          <div class="flex items-start justify-between">
-            <div>
-              <p class="text-sm text-zinc-400">الغرف المفتوحة</p>
-              <p class="mt-3 text-3xl font-extrabold">0</p>
+            <div class="card-content">
+              <h3>مراقبة التعقيم (Indicators)</h3>
+              <p>شرائط مؤشرات التعقيم البيولوجية والكيميائية، ومؤشرات ذاتية الاحتواء، واختبارات Bowie-Dick.</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
             </div>
-            <span class="grid h-11 w-11 place-items-center rounded-xl bg-violet-500/10 text-lg text-violet-400">▤</span>
-          </div>
-          <p class="mt-4 text-xs text-zinc-500">الغرف النشطة حاليًا</p>
-        </article>
-      </section>
-
-      <section class="panel soft-glow rounded-2xl p-5 sm:p-7">
-        <div class="mb-6 flex flex-col gap-3 border-b border-zinc-800 pb-5 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 class="text-lg font-bold">إعدادات النظام والربط</h2>
-            <p class="mt-1 text-sm text-zinc-500">حدّث بيانات الموقع وفئة تذاكر Discord.</p>
-          </div>
-          <span class="w-fit rounded-full border border-emerald-900/70 bg-emerald-950/40 px-3 py-1 text-xs font-semibold text-emerald-400">
-            الإعدادات الأساسية
-          </span>
+          </article>
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-chemicals.png" alt="مواد كيميائية مرجعية معتمدة للمعامل" loading="lazy">
+            </div>
+            <div class="card-content">
+              <h3>المواد الكيميائية والكواشف</h3>
+              <p>مذيبات عضوية وغير عضوية، وأصباغ وفيتامينات وأحماض نقية ومواد مرجعية معتمدة (NIST).</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-media.png" alt="عبوات أوساط زرعية وأجار للفحص المخبري" loading="lazy">
+            </div>
+            <div class="card-content">
+              <h3>الأوساط الزرعية (Culture Media)</h3>
+              <p>أوساط مجففة وسائلة، وأوساط كروموجينية ومكملات الأوساط المعقمة واختبارات الحساسية.</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-consumables.png" alt="مسحات ومستلزمات فحص معملية" loading="lazy">
+            </div>
+            <div class="card-content">
+              <h3>المستلزمات البلاستيكية المعملية</h3>
+              <p>أنابيب اختبار وأطباق بتري (Petri dishes)، وأكياس وأشرطة أوتوكلاف ومسحات عينات (Swabs).</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
+            </div>
+          </article>
+          <article class="product-card">
+            <div class="card-geometric-frame">
+              <img src="assets/product-atcc-strains.png" alt="أطباق زرع واختبارات ميكروبيولوجية" loading="lazy">
+            </div>
+            <div class="card-content">
+              <h3>سلالات مراقبة الجودة (ATCC Strains)</h3>
+              <p>سلالات ميكروبية مرجعية معتمدة للتحقق من كفاءة المعامل ومطابقة مواصفات الميكروبيولوجيا.</p>
+              <a href="#contact" class="card-link">اطلب تفاصيل الصنف <span aria-hidden="true">←</span></a>
+            </div>
+          </article>
         </div>
+      </div>
+    </section>
 
-        <form id="settings-form" class="space-y-6">
-          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <div>
-              <label for="website" class="mb-2 block text-sm font-semibold text-zinc-300">رابط الموقع</label>
-              <input
-                id="website"
-                name="website"
-                type="url"
-                value="https://mafiabunker.com"
-                placeholder="https://example.com"
-                class="w-full rounded-xl border border-zinc-800 bg-black/30 px-4 py-3 text-sm outline-none transition placeholder:text-zinc-600 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
-              >
-            </div>
-
-            <div>
-              <label for="category-id" class="mb-2 block text-sm font-semibold text-zinc-300">معرّف فئة التذاكر</label>
-              <input
-                id="category-id"
-                name="categoryId"
-                type="text"
-                inputmode="numeric"
-                value="1567342346738208830"
-                placeholder="أدخل معرّف الفئة"
-                class="w-full rounded-xl border border-zinc-800 bg-black/30 px-4 py-3 text-sm outline-none transition placeholder:text-zinc-600 focus:border-red-600 focus:ring-2 focus:ring-red-600/20"
-              >
-            </div>
+    <section id="about" class="about-section" aria-labelledby="about-title">
+      <div class="container about-container">
+        <div class="about-text">
+          <span class="section-kicker">لماذا Cabina Medical؟</span>
+          <h2 id="about-title">لماذا تعتمد المصانع والمعامل على Cabina Medical؟</h2>
+          <p>نحن نمتلك خبرة تمتد لأكثر من 15 عاماً في توفير المستلزمات الحرجة للمصانع وقطاعات الإنتاج والتحليل. نضمن لعملائنا سرعة التوريد، مطابقة المواصفات القياسية، والدعم الفني المستمر.</p>
+          <div class="features-checklist">
+            <div class="check-item"><span class="check-icon" aria-hidden="true">✓</span><span>توريدات معتمدة ومطابقة للمواصفات العالمية</span></div>
+            <div class="check-item"><span class="check-icon" aria-hidden="true">✓</span><span>مرونة كاملة في تلبية الطلبات الكبيرة للمصانع والمعامل</span></div>
+            <div class="check-item"><span class="check-icon" aria-hidden="true">✓</span><span>دعم فني واستشاري من متخصصين في المجال</span></div>
           </div>
+        </div>
+        <div class="about-stats-box" aria-label="أكثر من 15 عامًا من الخبرة">
+          <h3>+15</h3>
+          <p>عاماً من الريادة في توريد المعامل</p>
+        </div>
+      </div>
+    </section>
 
-          <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
-            <button type="submit" class="rounded-xl bg-red-600 px-6 py-3 text-sm font-bold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:ring-offset-zinc-950">
-              حفظ التغييرات
-            </button>
-            <p id="save-status" class="text-sm text-zinc-500" aria-live="polite"></p>
+    <section id="contact" class="contact-section" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-card-box">
+          <div class="contact-header">
+            <span class="section-kicker">نحن جاهزون لمساعدتك</span>
+            <h2 id="contact-title">تواصل مع قسم المبيعات وتوريدات المصانع</h2>
+            <p>فريقنا جاهز لاستقبال طلبات الشركات وإرسال عروض الأسعار الفورية.</p>
           </div>
-        </form>
-      </section>
-    </main>
+          <div class="contact-channels">
+            <a href="https://wa.me/201222299957" target="_blank" rel="noopener noreferrer" class="channel-item whatsapp">
+              <span class="ch-icon" aria-hidden="true">💬</span>
+              <span class="ch-info"><strong>راسل مبيعات الواتساب</strong><span>استجابة سريعة لطلبات التوريد</span></span>
+            </a>
+            <a href="mailto:cabinamedical@gmail.com" class="channel-item email">
+              <span class="ch-icon" aria-hidden="true">📧</span>
+              <span class="ch-info"><strong>البريد الإلكتروني الرسمي</strong><span>cabinamedical@gmail.com</span></span>
+            </a>
+            <a href="https://www.facebook.com/cabinamedical" target="_blank" rel="noopener noreferrer" class="channel-item facebook">
+              <span class="ch-icon" aria-hidden="true">🌐</span>
+              <span class="ch-info"><strong>صفحتنا الرسمية على فيسبوك</strong><span>facebook.com/cabinamedical</span></span>
+            </a>
+          </div>
+          <div class="company-address">
+            <p><span aria-hidden="true">📍</span> <strong>العنوان الرئيسي:</strong> 4 شارع أحمد ضيف الله، أبراج رتاج، برج (أ)، الدور الثاني، وحدة 205، المريوطية هرم، الجيزة.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <footer class="py-8 text-center text-xs text-zinc-600">
-      © 2026 MAFIA BUNKER — جميع الحقوق محفوظة
-    </footer>
-  </div>
-
+  <footer class="site-footer">
+    <div class="container">
+      <p>جميع الحقوق محفوظة © 2026 Cabina Medical. ريادة في توريد المعامل والمصانع.</p>
+    </div>
+  </footer>
   <script>
-    const form = document.getElementById("settings-form");
-    const status = document.getElementById("save-status");
-    const websiteInput = document.getElementById("website");
-    const categoryInput = document.getElementById("category-id");
+    const revealTargets = document.querySelectorAll(
+      "#partners .partners-title, #partners .marquee-container, .section-title, .product-card, .about-text, .about-stats-box, .contact-card-box"
+    );
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const savedSettings = JSON.parse(localStorage.getItem("mafiaBunkerSettings") || "{}");
-    if (savedSettings.website) websiteInput.value = savedSettings.website;
-    if (savedSettings.categoryId) categoryInput.value = savedSettings.categoryId;
+    if ("IntersectionObserver" in window && !prefersReducedMotion) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -36px 0px" });
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
-      const settings = {
-        website: websiteInput.value.trim(),
-        categoryId: categoryInput.value.trim()
-      };
-
-      localStorage.setItem("mafiaBunkerSettings", JSON.stringify(settings));
-      status.textContent = "تم حفظ الإعدادات في هذا المتصفح.";
-      status.className = "text-sm text-emerald-400";
-    });
+      revealTargets.forEach((target) => {
+        target.classList.add("scroll-reveal");
+        revealObserver.observe(target);
+      });
+    }
   </script>
 </body>
 </html>
